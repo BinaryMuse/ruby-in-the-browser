@@ -1,5 +1,5 @@
-PASS_STRING = "<span style='color: green;'>PASSED!</span>"
-FAIL_STRING = "<span style='color: red;'>FAILED!</span>"
+PASS_STRING = "<span class='pass_string'>PASSED!</span>"
+FAIL_STRING = "<span class='fail_string'>FAILED!</span>"
 
 class RubyInBrowser
   # Checks an answer sheet against results produced by the user's code.

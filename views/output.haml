@@ -1,13 +1,16 @@
-- if @lesson_text
-  = @lesson_text
-  %p
-    %a{:href => '/'} Back to the Table of Contents
-%form{:action => @path ? @path : '/', :method => 'post'}
-  %p Your Ruby code:
-  %textarea{:cols => 80, :rows => 15, :name => 'code'}= @code
-  %p
-    %input{:type => :submit}
-- if @output
-  - if @output.type == :exception || @output.type == :illegal
-    %p{:style => 'color: red;'}= "#{@output.type.to_s.capitalize}: #{@output.message}"
-  %pre= @output.content
+#left
+  - if @lesson_text
+    = @lesson_text
+    %p
+      %a{:href => '/'} Back to the Table of Contents
+  %form{:action => @path ? @path : '/', :method => 'post'}
+    %p Your Ruby code:
+    %textarea{:cols => 80, :rows => 15, :name => 'code'}= @code
+    %p
+      %input{:type => :submit, :value => 'Run Ruby'}
+#right
+  - if @output
+    %h1 Output
+    - if @output.type == :exception || @output.type == :illegal
+      %p{:style => 'color: red;'}= "#{@output.type.to_s.capitalize}: #{@output.message}"
+    %pre= @output.content

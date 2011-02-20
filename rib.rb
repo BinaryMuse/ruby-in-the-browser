@@ -13,7 +13,7 @@ class Output
 end
 
 get '/' do
-  haml :index
+  haml :index, :layout => false
 end
 
 get '/lesson/:lesson' do |lesson|
