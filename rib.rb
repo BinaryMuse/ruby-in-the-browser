@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'fakefs/safe'
 require 'haml'
 require 'stringio'
 
@@ -49,6 +50,8 @@ def ruby_code(code, lesson = nil)
   # https://github.com/Sophrinix/TryRuby/blob/master/tryruby/lib/tryruby.rb
   stdout_id = $stdout.to_i
   $stdout = StringIO.new
+  FakeFS.activate!
+  FakeFS::FileSystem.clear
   cmd = <<-EOF
   $SAFE = 3
   $stderr = StringIO.new
@@ -66,6 +69,7 @@ def ruby_code(code, lesson = nil)
   ensure
     output = get_stdout
     $stdout = IO.new(stdout_id)
+    FakeFS.deactivate!
   end
 
   return Output.new(:standard, output)
