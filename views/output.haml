@@ -1,5 +1,7 @@
 - if @lesson_text
   = @lesson_text
+  %p
+    %a{:href => '/'} Back to the Table of Contents
 %form{:action => @path ? @path : '/', :method => 'post'}
   %p Your Ruby code:
   %textarea{:cols => 80, :rows => 15, :name => 'code'}= @code
