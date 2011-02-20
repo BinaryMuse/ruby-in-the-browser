@@ -42,7 +42,7 @@ def ruby_code(code, lesson = nil)
   if lesson
     lesson_file = "./lessons/lesson_#{lesson}.rb"
     lesson_code = File.open(File.expand_path(lesson_file)).readlines.join
-    lesson_include = File.open(File.expand_path("./lesson_include.rb")).readlines.join
+    lesson_include = File.open(File.expand_path("./lessons/include.rb")).readlines.join
   end
 
   # STOLEN! from TryRuby
