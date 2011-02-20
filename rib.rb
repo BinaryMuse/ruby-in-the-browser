@@ -38,10 +38,11 @@ def prepare_lesson(lesson)
 end
 
 def ruby_code(code, lesson = nil)
-  lesson_code = ""
+  lesson_code = lesson_include = ""
   if lesson
     lesson_file = "./lessons/lesson_#{lesson}.rb"
     lesson_code = File.open(File.expand_path(lesson_file)).readlines.join
+    lesson_include = File.open(File.expand_path("./lesson_include.rb")).readlines.join
   end
 
   # STOLEN! from TryRuby
@@ -52,6 +53,7 @@ def ruby_code(code, lesson = nil)
   $SAFE = 3
   $stderr = StringIO.new
   #{code}
+  #{lesson_include}
   #{lesson_code}
   EOF
 
