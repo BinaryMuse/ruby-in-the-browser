@@ -13,26 +13,46 @@ class Output
 end
 
 get '/' do
-  @code = ''
   haml :index
 end
 
-post '/' do
-  @code = params['code']
-  @output = ruby_code(@code)
+get '/lesson/:lesson' do |lesson|
+  @code = ''
+
+  prepare_lesson(lesson)
   haml :output
 end
 
-def ruby_code(code)
+post '/lesson/:lesson' do |lesson|
+  @code   = params['code']
+  @output = ruby_code(@code, lesson)
+
+  prepare_lesson(lesson)
+  haml :output
+end
+
+def prepare_lesson(lesson)
+  @path = "/lesson/#{lesson}"
+  lesson_file  = "./lessons/lesson_#{lesson}.html"
+  @lesson_text = File.open(File.expand_path(lesson_file)).readlines.join
+end
+
+def ruby_code(code, lesson = nil)
+  lesson_code = ""
+  if lesson
+    lesson_file = "./lessons/lesson_#{lesson}.rb"
+    lesson_code = File.open(File.expand_path(lesson_file)).readlines.join
+  end
+
   # STOLEN! from TryRuby
   # https://github.com/Sophrinix/TryRuby/blob/master/tryruby/lib/tryruby.rb
   stdout_id = $stdout.to_i
   $stdout = StringIO.new
   cmd = <<-EOF
   $SAFE = 3
-  $stdout = StringIO.new
   $stderr = StringIO.new
   #{code}
+  #{lesson_code}
   EOF
 
   begin
