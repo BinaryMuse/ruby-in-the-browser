@@ -1,0 +1,3 @@
+- if @output.type == :error || @output.type == :illegal
+  %p{:style => 'color: red;'}= "#{@output.type.to_s.capitalize}: #{@output.message}"
+%pre= @output.content

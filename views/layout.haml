@@ -1,0 +1,16 @@
+!!! 5
+%html
+  %head
+    %title Ruby in the Browser
+    %style
+      :plain
+        body {
+          margin: 20px;
+        }
+  %body
+    %form{:action => '/', :method => 'post'}
+      %p Your Ruby code:
+      %textarea{:cols => 80, :rows => 15, :name => 'code'}= @code
+      %p
+        %input{:type => :submit}
+    = yield
